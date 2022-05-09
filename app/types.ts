@@ -1,4 +1,4 @@
-import { Rarity } from "./graphql/bridgeworld.generated";
+import type { Rarity } from "./graphql/bridgeworld.generated";
 
 export type Optional<T> = T | undefined;
 

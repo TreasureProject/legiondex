@@ -1,5 +1,7 @@
-import type { Legion } from "~/types";
 import { Link } from "@remix-run/react";
+import clsx from "clsx";
+
+import type { Legion } from "~/types";
 import LegionStatusPill from "~/components/LegionStatusPill";
 import {
   getCraftingMaxXpPerLevel,
@@ -7,7 +9,6 @@ import {
 } from "~/utils/legion";
 import ConstellationBadge from "~/components/ConstellationBadge";
 import { Rarity } from "~/graphql/bridgeworld.generated";
-import clsx from "clsx";
 
 type Props = {
   legion: Legion;
@@ -40,7 +41,7 @@ export default function LegionCard({ legion }: Props) {
     >
       <div className="flex gap-3 p-1">
         <div className="w-[30%] overflow-hidden rounded-full">
-          <img src={imgSrc} />
+          <img alt="" src={imgSrc} />
         </div>
         <div className="flex flex-1 justify-between">
           <div className="flex flex-col justify-between py-1 text-left">

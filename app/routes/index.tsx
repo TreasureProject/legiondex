@@ -1,10 +1,10 @@
-import { LoaderFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/node";
+import type { LoaderFunction} from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import { NavLink, useLoaderData } from "@remix-run/react";
 
 import type { Legion, LegionGeneration } from "~/types";
 import { getLegions } from "~/models/legion.server";
-import { NavLink, useLoaderData } from "@remix-run/react";
-import { Rarity } from "~/graphql/bridgeworld.generated";
+import type { Rarity } from "~/graphql/bridgeworld.generated";
 import clsx from "clsx";
 import LegionCard from "~/components/LegionCard";
 

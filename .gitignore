@@ -1,8 +1,11 @@
 .DS_Store
 node_modules
+build
 
-/build
+/.cache
+/functions/\[\[path\]\].js*
 /public/build
 .env
 
+/app/graphql/*.generated.ts
 /app/styles/tailwind.css

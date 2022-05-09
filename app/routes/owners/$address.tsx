@@ -1,5 +1,5 @@
-import { LoaderFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/node";
+import type { LoaderFunction} from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { ExternalLinkIcon } from "@heroicons/react/outline";

@@ -1,18 +1,20 @@
 import { bridgeworldSdk } from "~/api.server";
-import {
-  Category,
+import type {
   GetLegionsQuery,
   LegionInfo,
   Rarity,
-  Token_Filter,
-} from "~/graphql/bridgeworld.generated";
+  Token_Filter} from "~/graphql/bridgeworld.generated";
 import {
-  ConstellationElement,
+  Category
+} from "~/graphql/bridgeworld.generated";
+import type {
   Legion,
   LegionClass,
   LegionGeneration,
-  LegionStatus,
-  Optional,
+  Optional} from "~/types";
+import {
+  ConstellationElement,
+  LegionStatus
 } from "~/types";
 
 type RawLegion = GetLegionsQuery["tokens"][0];

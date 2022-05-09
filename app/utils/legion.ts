@@ -1,5 +1,5 @@
 import { Rarity } from "~/graphql/bridgeworld.generated";
-import { Legion } from "~/types";
+import type { Legion } from "~/types";
 
 export const getLegionDisplayName = (legion: Legion) => {
   if (legion.generation === "Recruit") {

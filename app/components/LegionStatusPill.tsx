@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { LegionStatus } from "~/types";
 
 type Props = HTMLAttributes<HTMLSpanElement> & {

@@ -1,5 +1,5 @@
-import { LoaderFunction } from "@remix-run/server-runtime";
-import { json, Response } from "@remix-run/node";
+import type { LoaderFunction} from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
@@ -42,7 +42,7 @@ export default function Token() {
       />
       <main className="container mx-auto -mt-[10vh] mb-10 text-center">
         <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-white drop-shadow-lg">
-          <img src={legion.imageAlt} />
+          <img alt="" src={legion.imageAlt} />
         </div>
         <div className="mt-3 mb-8">
           <h3 className="font-medium">#{legion.tokenId}</h3>
@@ -88,7 +88,7 @@ export default function Token() {
         </div>
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
           <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:drop-shadow-lg">
-            <img src={legion.image} />
+            <img alt="" src={legion.image} />
           </div>
           <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">
@@ -137,14 +137,6 @@ export default function Token() {
             </div>
           </div>
         </div>
-        {/* <div className="grid grid-cols-6">
-          <Constellation level={7} element="fire" />
-          <Constellation level={7} element="water" />
-          <Constellation level={7} element="wind" />
-          <Constellation level={7} element="earth" />
-          <Constellation level={7} element="light" />
-          <Constellation level={7} element="dark" />
-        </div> */}
       </main>
     </>
   );

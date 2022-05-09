@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { Constellation, ConstellationElement } from "~/types";
+import type { Constellation} from "~/types";
+import { ConstellationElement } from "~/types";
 
 type Props = {
   constellation: Constellation;
