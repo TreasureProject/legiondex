@@ -77,8 +77,8 @@ export default function Token() {
         className="h-[20vh]"
         style={{ backgroundColor: `rgba(${tintColor.join(", ")})` }}
       />
-      <main className="container mx-auto -mt-[10vh] mb-10 text-center">
-        <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-white drop-shadow-lg">
+      <main className="container mx-auto -mt-[8vh] mb-10 text-center">
+        <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-white shadow-lg">
           <img alt="" src={imageAlt} />
         </div>
         <div className="mt-3 mb-8">
@@ -126,7 +126,7 @@ export default function Token() {
           )}
         </div>
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
-          <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:drop-shadow-lg">
+          <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:shadow-lg">
             <img
               alt=""
               src={isLegendary ? image.replace(".jpg", ".png") : image}
@@ -134,7 +134,7 @@ export default function Token() {
           </div>
           <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Crafts
@@ -148,7 +148,7 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Quests
@@ -162,7 +162,7 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Summons

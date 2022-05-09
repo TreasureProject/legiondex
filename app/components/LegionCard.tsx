@@ -37,64 +37,62 @@ export default function LegionCard({ legion }: Props) {
     <Link
       to={`/legions/${tokenId}`}
       prefetch="intent"
-      className="group overflow-hidden rounded-l-full rounded-r-[2500px] border border-gray-200 bg-white drop-shadow hover:drop-shadow-md"
+      className="group overflow-hidden rounded-l-full rounded-r-[2500px] border border-gray-200 bg-white shadow-md hover:shadow-lg"
     >
-      <div className="flex gap-3 p-1">
+      <div className="relative flex gap-3 p-1">
         <div className="w-[30%] overflow-hidden rounded-full">
           <img alt="" src={imgSrc} />
         </div>
-        <div className="flex flex-1 justify-between">
-          <div className="flex flex-col justify-between py-1 text-left">
-            <div>
-              {!isNamed && (
-                <span className="block text-sm">
-                  {generation} {rarity}
-                </span>
-              )}
-              <span
-                className={clsx(
-                  "block text-lg font-black uppercase tracking-tight group-hover:underline",
-                  !isNamed && "-mt-1"
-                )}
-              >
+        <div className="flex flex-1 flex-col justify-between py-1 text-left">
+          <div className="-ml-1">
+            {!isNamed && (
+              <span className="block px-1 text-sm">
+                {generation} {rarity}
+              </span>
+            )}
+            <span className={clsx("block", !isNamed && "-mt-1")}>
+              <span className="px-1 text-lg font-black uppercase tracking-tight group-hover:bg-black group-hover:text-white">
                 {isNamed ? name : role}
               </span>
-            </div>
-            {!isRecruit && (
-              <div>
-                <div className="flex gap-[2px]">
-                  {constellations
-                    .filter(({ value }) => value)
-                    .map((constellation) => (
-                      <ConstellationBadge
-                        key={constellation.element}
-                        constellation={constellation}
-                      />
-                    ))}
-                </div>
-                <span className="block text-xs">
-                  <span className="align-middle font-semibold">
-                    Craft Lv. {craftingLevel}
-                  </span>{" "}
-                  <span className="align-middle text-[0.65rem]">
-                    ({craftingXp}/{getCraftingMaxXpPerLevel(craftingLevel)} XP)
-                  </span>
-                </span>
-                <span className="block text-xs">
-                  <span className="align-middle font-semibold">
-                    Quest Lv. {questingLevel}
-                  </span>{" "}
-                  <span className="align-middle text-[0.65rem]">
-                    ({questingXp}/{getQuestingMaxXpPerLevel(questingLevel)} XP)
-                  </span>
-                </span>
+            </span>
+          </div>
+          {!isRecruit && (
+            <div>
+              <div className="flex gap-[2px]">
+                {constellations
+                  .filter(({ value }) => value)
+                  .map((constellation) => (
+                    <ConstellationBadge
+                      key={constellation.element}
+                      constellation={constellation}
+                    />
+                  ))}
               </div>
-            )}
-          </div>
-          <div className="flex flex-col items-end justify-between p-1">
-            <span className="text-xl font-thin">#{tokenId}</span>
-            <LegionStatusPill status={status} className="text-xs" />
-          </div>
+              <span className="block text-xs">
+                <span className="align-middle font-semibold">
+                  Craft Lv. {craftingLevel}
+                </span>{" "}
+                <span className="align-middle text-[0.65rem]">
+                  ({craftingXp}/{getCraftingMaxXpPerLevel(craftingLevel)} XP)
+                </span>
+              </span>
+              <span className="block text-xs">
+                <span className="align-middle font-semibold">
+                  Quest Lv. {questingLevel}
+                </span>{" "}
+                <span className="align-middle text-[0.65rem]">
+                  ({questingXp}/{getQuestingMaxXpPerLevel(questingLevel)} XP)
+                </span>
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="absolute top-0 right-0 bottom-0 flex flex-col items-end justify-between">
+          <span className="pr-1 text-lg font-thin">#{tokenId}</span>
+          <LegionStatusPill
+            status={status}
+            className="rounded-none rounded-tl-lg pr-2.5 text-xs"
+          />
         </div>
       </div>
     </Link>

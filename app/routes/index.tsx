@@ -52,10 +52,9 @@ export const meta: MetaFunction = ({ data }) => {
   return {
     title: `${title} | Legiondex`,
     description: "Your guide to the inhabitants of Bridgeworld.",
-    "og:image":
-      legions?.[0].imageAlt ??
-      legions?.[0].image ??
-      "https://treasure-marketplace.mypinata.cloud/ipfs/Qmf4UCM6GDadqY7hcu73tHHEQDqvyFUqA6aDYkJWVh8vJo/Genesis/Rare/Executioner/3C.jpg",
+    "og:image": filterGeneration
+      ? legions?.[0].imageAlt ?? legions?.[0].image
+      : "https://treasure-marketplace.mypinata.cloud/ipfs/Qmf4UCM6GDadqY7hcu73tHHEQDqvyFUqA6aDYkJWVh8vJo/Genesis/Rare/Executioner/3C.jpg",
   };
 };
 

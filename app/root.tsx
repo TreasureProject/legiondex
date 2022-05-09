@@ -58,13 +58,15 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <nav className="border-b border-gray-200 bg-white px-4 drop-shadow-lg">
+        <nav className="border-b border-gray-200 bg-white px-4 shadow-md">
           <div className="container mx-auto flex items-center gap-6 md:gap-8">
             <NavLink
               to="/"
-              className="py-3 text-3xl font-black uppercase tracking-tight"
+              className="group py-3 text-3xl font-black uppercase tracking-tight"
             >
-              Legiondex
+              <span className="p-1 group-hover:bg-black group-hover:text-white">
+                Legiondex
+              </span>
             </NavLink>
             <div className="flex flex-1 items-center justify-between">
               <div className="flex items-center gap-4 text-sm font-medium md:gap-6">
