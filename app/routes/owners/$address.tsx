@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/cloudflare";
+import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
@@ -12,6 +12,15 @@ import LegionCard from "~/components/LegionCard";
 type LoaderData = {
   address: string;
   legions: Legion[];
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  const { address, legions } = data as LoaderData;
+  return {
+    title: `${truncateAddress(address)}'s Legion Army | Legiondex`,
+    description: "Your guide to the inhabitants of Bridgeworld.",
+    "og:image": legions?.[0].imageAlt ?? legions?.[0].image,
+  };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {

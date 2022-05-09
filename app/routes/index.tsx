@@ -1,10 +1,10 @@
-import type { LoaderFunction } from "@remix-run/cloudflare";
+import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { NavLink, useLoaderData } from "@remix-run/react";
 
 import type { Legion, LegionGeneration } from "~/types";
 import { getLegions } from "~/models/legion.server";
-import type { Rarity } from "~/graphql/bridgeworld.generated";
+import { Rarity } from "~/graphql/bridgeworld.generated";
 import clsx from "clsx";
 import LegionCard from "~/components/LegionCard";
 
@@ -34,6 +34,29 @@ const LEGIONS_RARITY_NAV: Partial<Record<LegionGeneration, NavItem[]>> = {
     { path: "/?generation=Auxiliary&rarity=Uncommon", name: "Uncommon" },
     { path: "/?generation=Auxiliary&rarity=Rare", name: "Rare" },
   ],
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  const { legions, filterGeneration, filterRarity } = data as LoaderData;
+  let title = "All Legions";
+  if (filterGeneration && filterRarity) {
+    if (filterRarity === Rarity.Legendary) {
+      title = "1/1 Legions";
+    } else {
+      title = `${filterGeneration} ${filterRarity} Legions`;
+    }
+  } else if (filterGeneration) {
+    title = `${filterGeneration} Legions`;
+  }
+
+  return {
+    title: `${title} | Legiondex`,
+    description: "Your guide to the inhabitants of Bridgeworld.",
+    "og:image":
+      legions?.[0].imageAlt ??
+      legions?.[0].image ??
+      "https://treasure-marketplace.mypinata.cloud/ipfs/Qmf4UCM6GDadqY7hcu73tHHEQDqvyFUqA6aDYkJWVh8vJo/Genesis/Rare/Executioner/3C.jpg",
+  };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

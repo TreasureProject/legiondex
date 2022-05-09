@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/cloudflare";
+import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
@@ -18,6 +18,20 @@ import { Rarity } from "~/graphql/bridgeworld.generated";
 
 type LoaderData = {
   legion: Legion;
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  const { legion } = data as LoaderData;
+  const { tokenId, generation, rarity, role, name } = legion;
+  const legionName =
+    generation === "Recruit" || rarity === Rarity.Legendary
+      ? name
+      : `${generation} ${rarity} - ${role}`;
+  return {
+    title: `#${tokenId} ${legionName} | Legiondex`,
+    description: "Your guide to the inhabitants of Bridgeworld.",
+    "og:image": legion.imageAlt ?? legion.image,
+  };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
