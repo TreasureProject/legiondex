@@ -86,13 +86,13 @@ export default function Token() {
             </div>
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-y-10 md:gap-10">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
           <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:drop-shadow-lg">
             <img src={legion.image} />
           </div>
-          <div className="md:col-span-3 text-left">
+          <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">
-              <div className="overflow-hidden md:rounded-xl border-t border-b md:border border-gray-200 bg-white drop-shadow-md">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Crafts
@@ -106,7 +106,7 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden md:rounded-xl border-t border-b md:border border-gray-200 bg-white drop-shadow-md">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Quests
@@ -120,7 +120,7 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden md:rounded-xl border-t border-b md:border border-gray-200 bg-white drop-shadow-md">
+              <div className="overflow-hidden border-t border-b border-gray-200 bg-white drop-shadow-md md:rounded-xl md:border">
                 <div className="bg-zinc-50 px-4 py-3">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Summons

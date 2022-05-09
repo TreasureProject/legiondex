@@ -58,7 +58,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <nav className="px-4 border-b border-gray-200 bg-white drop-shadow-lg">
+        <nav className="border-b border-gray-200 bg-white px-4 drop-shadow-lg">
           <div className="container mx-auto flex items-center gap-6 md:gap-8">
             <NavLink
               to="/"
@@ -67,8 +67,8 @@ export default function App() {
               Legiondex
             </NavLink>
             <div className="flex flex-1 items-center justify-between">
-              <div className="flex items-center gap-4 md:gap-6 text-sm font-medium">
-                <NavLink to="/" className="hidden md:block hover:underline">
+              <div className="flex items-center gap-4 text-sm font-medium md:gap-6">
+                <NavLink to="/" className="hidden hover:underline md:block">
                   All Legions
                 </NavLink>
                 <NavLink to="/?generation=Genesis" className="hover:underline">

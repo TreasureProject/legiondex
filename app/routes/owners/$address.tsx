@@ -29,8 +29,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function UserProfile() {
   const { address, legions } = useLoaderData<LoaderData>();
   return (
-    <main className="container mx-auto mt-6 md:mt-10 mb-10 px-4 text-center">
-      <h1 className="text-2xl md:text-4xl font-bold">
+    <main className="container mx-auto mt-6 mb-10 px-4 text-center md:mt-10">
+      <h1 className="text-2xl font-bold md:text-4xl">
         {truncateAddress(address)}'s Legion Army
       </h1>
       <a
@@ -41,7 +41,7 @@ export default function UserProfile() {
       >
         View on Arbiscan <ExternalLinkIcon className="h-4 w-4" />
       </a>
-      <div className="mt-6 md:mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
         {legions.map((legion) => (
           <LegionCard key={legion.id} legion={legion} />
         ))}

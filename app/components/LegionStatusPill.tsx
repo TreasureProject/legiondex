@@ -36,11 +36,21 @@ export default function LegionStatusPill({
       )}
       {...spanProps}
     >
-      <span className="relative mt-0.5 w-1.5 h-1.5">
+      <span className="relative mt-0.5 h-1.5 w-1.5">
         {status !== LegionStatus.Idle && (
-          <span className={clsx("animate-ping absolute inset-0 w-full h-full rounded-full", STATUS_TO_DOT_CLASS_NAMES[status])}></span>
+          <span
+            className={clsx(
+              "absolute inset-0 h-full w-full animate-ping rounded-full",
+              STATUS_TO_DOT_CLASS_NAMES[status]
+            )}
+          ></span>
         )}
-        <span className={clsx("relative block w-full h-full rounded-full", STATUS_TO_DOT_CLASS_NAMES[status])}></span>
+        <span
+          className={clsx(
+            "relative block h-full w-full rounded-full",
+            STATUS_TO_DOT_CLASS_NAMES[status]
+          )}
+        ></span>
       </span>
       {status}
     </span>

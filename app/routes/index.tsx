@@ -55,15 +55,15 @@ export default function Home() {
   const { legions, filterGeneration, filterRarity } =
     useLoaderData<LoaderData>();
   return (
-    <main className="container mx-auto mt-6 md:mt-10 mb-10 px-4 text-center">
+    <main className="container mx-auto mt-6 mb-10 px-4 text-center md:mt-10">
       {filterGeneration && LEGIONS_RARITY_NAV[filterGeneration] && (
-        <ul className="mb-6 md:mb-10 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-6">
+        <ul className="mb-6 flex flex-col items-center justify-center gap-1 md:mb-10 md:flex-row md:gap-6">
           {LEGIONS_RARITY_NAV[filterGeneration]?.map(({ path, name }) => (
             <li key={path}>
               <NavLink
                 to={path}
                 className={clsx(
-                  "rounded-full px-3 md:px-4 py-1 md:py-2",
+                  "rounded-full px-3 py-1 md:px-4 md:py-2",
                   (!filterRarity && name.includes("All")) ||
                     filterRarity === name
                     ? "bg-slate-100 font-semibold"
