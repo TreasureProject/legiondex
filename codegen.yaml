@@ -1,0 +1,9 @@
+overwrite: true
+generates:
+  ./app/graphql/bridgeworld.generated.ts:
+    schema: https://api.thegraph.com/subgraphs/name/treasureproject/bridgeworld-next
+    documents: "./app/graphql/bridgeworld.queries.ts"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
