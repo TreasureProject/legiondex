@@ -19,7 +19,7 @@ export const meta: MetaFunction = ({ data }) => {
   return {
     title: `${truncateAddress(address)}'s Legion Army | Legiondex`,
     description: "Your guide to the inhabitants of Bridgeworld.",
-    "og:image": legions?.[0].imageAlt ?? legions?.[0].image,
+    "og:image": legions[0]?.imageAlt ?? legions[0]?.image,
   };
 };
 
@@ -50,11 +50,15 @@ export default function UserProfile() {
       >
         View on Arbiscan <ExternalLinkIcon className="h-4 w-4" />
       </a>
-      <div className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
-        {legions.map((legion) => (
-          <LegionCard key={legion.id} legion={legion} />
-        ))}
-      </div>
+      {legions.length > 0 ? (
+        <div className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
+          {legions.map((legion) => (
+            <LegionCard key={legion.id} legion={legion} />
+          ))}
+        </div>
+      ) : (
+        <div className="m-6">No Legions found.</div>
+      )}
     </main>
   );
 }
