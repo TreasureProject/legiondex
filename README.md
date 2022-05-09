@@ -6,7 +6,7 @@ Your guide to the inhabitants of Bridgeworld.
 
 ### Pre-requisites
 
-- Node v14+
+- Node v16+
 
 ### Setup
 
@@ -19,7 +19,7 @@ npm install
 Auto-generate types from GraphQL queries:
 
 ```
-npm run generate:gql
+npm run codegen
 ```
 
 ### Run
