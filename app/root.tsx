@@ -64,7 +64,7 @@ export default function App() {
               to="/"
               className="group py-3 text-3xl font-black uppercase tracking-tight"
             >
-              <span className="p-1 group-hover:bg-black group-hover:text-white">
+              <span className="px-1 group-hover:bg-black group-hover:text-white">
                 Legiondex
               </span>
             </NavLink>

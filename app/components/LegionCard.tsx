@@ -88,7 +88,7 @@ export default function LegionCard({ legion }: Props) {
           )}
         </div>
         <div className="absolute top-0 right-0 bottom-0 flex flex-col items-end justify-between">
-          <span className="pr-1 text-lg font-thin">#{tokenId}</span>
+          <span className="pt-1 pr-1.5 text-lg font-thin">#{tokenId}</span>
           <LegionStatusPill
             status={status}
             className="rounded-none rounded-tl-lg pr-2.5 text-xs"

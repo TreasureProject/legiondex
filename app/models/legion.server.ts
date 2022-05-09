@@ -141,6 +141,8 @@ export const getUserLegions = async (address: string): Promise<Legion[]> => {
 };
 
 export const getLegions = async (
+  first: number = 30,
+  skip: number = 0,
   filter: Optional<GetLegionsFilter> = undefined
 ): Promise<Legion[]> => {
   const where: Token_Filter = { category: Category.Legion };
@@ -152,7 +154,11 @@ export const getLegions = async (
     where.rarity = filter.rarity;
   }
 
-  const response = await bridgeworldSdk.getLegions({ where });
+  const response = await bridgeworldSdk.getLegions({
+    first,
+    skip,
+    where,
+  });
   const legions = response.tokens.map((token) => normalizeLegion(token)) ?? [];
   const legionsWithStatuses = await updateLegionsStatuses(legions);
   return legionsWithStatuses;
