@@ -91,6 +91,13 @@ const updateLegionsStatuses = async (
   const activitiesResponse = await bridgeworldSdk.getLegionsActivities({
     ids: legionIds,
   });
+
+  activitiesResponse.advancedQuests.forEach(({ token, user }) => {
+    const index = legions.findIndex(({ id }) => id === token.id);
+    legions[index].status = LegionStatus.Questing;
+    legions[index].owner = user.id;
+  });
+
   activitiesResponse.crafts.forEach(({ token, user }) => {
     const index = legions.findIndex(({ id }) => id === token.id);
     legions[index].status = LegionStatus.Crafting;
@@ -122,20 +129,27 @@ export const getUserLegions = async (address: string): Promise<Legion[]> => {
   const response = await bridgeworldSdk.getUserLegions({
     id: address.toLowerCase(),
   });
+  if (!response.user) {
+    return [];
+  }
+
   const legions = [
-    ...response.crafts.map(({ token }) =>
-      normalizeLegion(token, LegionStatus.Crafting)
-    ),
-    ...response.quests.map(({ token }) =>
+    ...response.user.advancedQuests.map(({ token }) =>
       normalizeLegion(token, LegionStatus.Questing)
     ),
-    ...response.stakedTokens.map(({ token }) =>
+    ...response.user.crafts.map(({ token }) =>
+      normalizeLegion(token, LegionStatus.Crafting)
+    ),
+    ...response.user.quests.map(({ token }) =>
+      normalizeLegion(token, LegionStatus.Questing)
+    ),
+    ...response.user.staked.map(({ token }) =>
       normalizeLegion(token, LegionStatus.Staked)
     ),
-    ...response.summons.map(({ token }) =>
+    ...response.user.summons.map(({ token }) =>
       normalizeLegion(token, LegionStatus.Summoning)
     ),
-    ...response.userTokens.map(({ token }) => normalizeLegion(token)),
+    ...response.user.tokens.map(({ token }) => normalizeLegion(token)),
   ].flat();
   return legions.sort((a, b) => a.tokenId - b.tokenId);
 };

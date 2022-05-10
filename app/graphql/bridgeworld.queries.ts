@@ -38,8 +38,16 @@ const legionFieldsFragment = gql`
 export const getLegionsActivities = gql`
   query getLegionsActivities(
     $ids: [String!]!
-    $statuses: [Status!] = [Revealable, Revealed]
+    $statuses: [Status!] = [Idle, Revealable, Revealed]
   ) {
+    advancedQuests(where: { token_in: $ids, status_in: $statuses }) {
+      token {
+        id
+      }
+      user {
+        id
+      }
+    }
     crafts(where: { token_in: $ids, status_in: $statuses }) {
       token {
         id
@@ -97,40 +105,45 @@ export const getLegions = gql`
 `;
 
 export const getUserLegions = gql`
-  query getUserLegions($id: String!) {
-    crafts(where: { user: $id, status_in: [Revealable, Revealed] }) {
-      token {
-        ...legionFields
+  query getUserLegions($id: ID!) {
+    user(id: $id) {
+      advancedQuests(where: { status_in: [Idle, Revealable, Revealed] }) {
+        token {
+          ...legionFields
+        }
       }
-    }
-    quests(where: { user: $id, status_in: [Revealable, Revealed] }) {
-      token {
-        ...legionFields
+      crafts(where: { status_in: [Idle, Revealable, Revealed] }) {
+        token {
+          ...legionFields
+        }
       }
-    }
-    stakedTokens(
-      where: {
-        user: $id
-        token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
+      quests(where: { status_in: [Idle, Revealable, Revealed] }) {
+        token {
+          ...legionFields
+        }
       }
-    ) {
-      token {
-        ...legionFields
+      staked(
+        where: {
+          token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
+        }
+      ) {
+        token {
+          ...legionFields
+        }
       }
-    }
-    summons(where: { user: $id, status_in: [Revealable, Revealed] }) {
-      token {
-        ...legionFields
+      summons(where: { status_in: [Idle, Revealable, Revealed] }) {
+        token {
+          ...legionFields
+        }
       }
-    }
-    userTokens(
-      where: {
-        user: $id
-        token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
-      }
-    ) {
-      token {
-        ...legionFields
+      tokens(
+        where: {
+          token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
+        }
+      ) {
+        token {
+          ...legionFields
+        }
       }
     }
   }
