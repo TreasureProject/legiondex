@@ -38,7 +38,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { tokenId } = params;
   invariant(tokenId, "Legion not found");
 
-  const legion = await getLegion(tokenId);
+  const parsedTokenId = parseInt(tokenId);
+  const legion = await getLegion(
+    Number.isNaN(parsedTokenId) ? 0 : parsedTokenId
+  );
   if (!legion) {
     throw new Response("Not Found", { status: 404 });
   }
@@ -69,8 +72,7 @@ export default function Token() {
   } = legion;
 
   const isRecruit = generation === "Recruit";
-  const isLegendary = rarity === Rarity.Legendary;
-  const isNamed = isRecruit || isLegendary;
+  const isNamed = isRecruit || rarity === Rarity.Legendary;
   return (
     <>
       <div
@@ -127,10 +129,7 @@ export default function Token() {
         </div>
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
           <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:shadow-lg">
-            <img
-              alt=""
-              src={isLegendary ? image.replace(".jpg", ".png") : image}
-            />
+            <img alt="" src={image} />
           </div>
           <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">

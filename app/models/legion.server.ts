@@ -179,7 +179,7 @@ export const getLegions = async (
 };
 
 export const getLegion = async (
-  tokenId: string
+  tokenId: number
 ): Promise<Legion | undefined> => {
   const response = await bridgeworldSdk.getLegions({
     where: {

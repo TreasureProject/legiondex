@@ -1,6 +1,10 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
-import { json } from "@remix-run/cloudflare";
-import { Link, NavLink, useLoaderData } from "@remix-run/react";
+import type {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/cloudflare";
+import { json, redirect } from "@remix-run/cloudflare";
+import { Form, Link, NavLink, useLoaderData } from "@remix-run/react";
 
 import type { Legion, LegionGeneration } from "~/types";
 import { getLegions } from "~/models/legion.server";
@@ -68,6 +72,18 @@ const LEGIONS_RARITY_NAV: Partial<Record<LegionGeneration, NavItem[]>> = {
 };
 
 const LEGIONS_PER_PAGE = 30;
+
+export const action: ActionFunction = async ({ request }) => {
+  const body = await request.formData();
+  const query = body.get("query")?.toString();
+  if (query) {
+    if (query.startsWith("0x")) {
+      return redirect(`/owners/${query}`);
+    }
+
+    return redirect(`/legions/${query}`);
+  }
+};
 
 export const meta: MetaFunction = ({ data }) => {
   const { legions, filterGeneration, filterRarity } = data as LoaderData;
@@ -146,7 +162,7 @@ export default function Home() {
 
   return (
     <main className="container mx-auto mt-6 mb-12 px-4 text-center md:mt-10">
-      {filterGeneration && LEGIONS_RARITY_NAV[filterGeneration] && (
+      {filterGeneration && LEGIONS_RARITY_NAV[filterGeneration] ? (
         <ul className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-6">
           {LEGIONS_RARITY_NAV[filterGeneration]?.map(({ path, name }) => (
             <li key={path}>
@@ -165,6 +181,28 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      ) : (
+        <Form
+          className="mx-auto flex max-w-[480px] justify-center px-4"
+          method="post"
+        >
+          <label className="sr-only" htmlFor="searchInput">
+            Search
+          </label>
+          <input
+            id="searchInput"
+            name="query"
+            className="group w-full w-full rounded-l border border-r-0 p-2 text-gray-700 focus:border-sky-800 focus:shadow focus:outline-none"
+            type="text"
+            placeholder="Search address or token ID..."
+          />
+          <button
+            className="rounded-r border border-l-0 border-sky-800 bg-sky-800 py-2 px-3 text-white group-focus:shadow"
+            type="submit"
+          >
+            Go
+          </button>
+        </Form>
       )}
       {renderPaginationControls("my-3")}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
