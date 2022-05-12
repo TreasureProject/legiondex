@@ -18,7 +18,7 @@ export const meta: MetaFunction = ({ data }) => {
   const { address, legions } = data as LoaderData;
   return {
     title: `${truncateAddress(address)}'s Legion Army | Legiondex`,
-    description: "Your guide to the inhabitants of Bridgeworld.",
+    description: "Your guide to the heroes of Bridgeworld.",
     "og:image": legions[0]?.imageAlt ?? legions[0]?.image,
   };
 };

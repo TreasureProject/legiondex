@@ -29,7 +29,7 @@ export const meta: MetaFunction = ({ data }) => {
       : `${generation} ${rarity} - ${role}`;
   return {
     title: `#${tokenId} ${legionName} | Legiondex`,
-    description: "Your guide to the inhabitants of Bridgeworld.",
+    description: "Your guide to the heroes of Bridgeworld.",
     "og:image": legion.imageAlt ?? legion.image,
   };
 };

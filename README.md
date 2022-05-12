@@ -1,6 +1,6 @@
 # Legiondex
 
-Your guide to the inhabitants of Bridgeworld.
+Your guide to the heroes of Bridgeworld.
 
 ## Development
 
