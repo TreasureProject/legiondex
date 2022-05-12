@@ -161,7 +161,7 @@ export default function Home() {
   );
 
   return (
-    <main className="container mx-auto mt-6 mb-12 px-4 text-center md:mt-10">
+    <main className="container mx-auto px-4 pt-6 pb-12 text-center md:pt-10">
       {filterGeneration && LEGIONS_RARITY_NAV[filterGeneration] ? (
         <ul className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-6">
           {LEGIONS_RARITY_NAV[filterGeneration]?.map(({ path, name }) => (

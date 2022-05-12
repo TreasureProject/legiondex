@@ -1,5 +1,6 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -57,7 +58,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-slate-100">
         <nav className="border-b border-gray-200 bg-white px-4 shadow-md">
           <div className="container mx-auto flex items-center gap-6 md:gap-8">
             <NavLink
@@ -86,7 +87,103 @@ export default function App() {
             </div>
           </div>
         </nav>
-        <Outlet />
+        <div className="bg-white">
+          <Outlet />
+        </div>
+        <footer>
+          <div className="container mx-auto max-w-[720px]">
+            <div className="p-8">
+              <div className="grid grid-cols-1 gap-6 text-sm text-sky-800 sm:grid-cols-3">
+                <ul>
+                  <li>
+                    <span className="font-medium text-black">Legions</span>
+                  </li>
+                  {[
+                    { to: "/", title: "All Legions" },
+                    {
+                      to: "/?generation=Genesis",
+                      title: "All Genesis Legions",
+                    },
+                    {
+                      to: "/?generation=Genesis&rarity=Common",
+                      title: "Genesis Common Legions",
+                    },
+                    {
+                      to: "/?generation=Genesis&rarity=Special",
+                      title: "Genesis Special Legions",
+                    },
+                    {
+                      to: "/?generation=Genesis&rarity=Uncommon",
+                      title: "Genesis Uncommon Legions",
+                    },
+                    {
+                      to: "/?generation=Genesis&rarity=Rare",
+                      title: "Genesis Rare Legions",
+                    },
+                    {
+                      to: "/?generation=Genesis&rarity=Legendary",
+                      title: "1/1 Legions",
+                    },
+                    {
+                      to: "/?generation=Auxiliary",
+                      title: "All Auxiliary Legions",
+                    },
+                    {
+                      to: "/?generation=Auxiliary&rarity=Common",
+                      title: "Auxiliary Common Legions",
+                    },
+                    {
+                      to: "/?generation=Auxiliary&rarity=Uncommon",
+                      title: "Auxiliary Uncommon Legions",
+                    },
+                    {
+                      to: "/?generation=Auxiliary&rarity=Rare",
+                      title: "Auxiliary Rare Legions",
+                    },
+                  ].map(({ to, title }) => (
+                    <li key={to}>
+                      <Link to={to} className="hover:underline">
+                        {title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  <li>
+                    <span className="font-medium text-black">Owners</span>
+                  </li>
+                  <li>
+                    <Link
+                      to="/owners/0xf5411006eefd66c213d2fd2033a1d340458b7226"
+                      className="hover:underline"
+                    >
+                      BattleFly Treasury
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/owners/0x4deFaa0B91EA699F0Da90DEC276bbaa629015140"
+                      className="hover:underline"
+                    >
+                      Magic Dragon DAO
+                    </Link>
+                  </li>
+                </ul>
+                <div className="text-black">
+                  Created by{" "}
+                  <a
+                    href="https://www.twitter.com/0xrappzula"
+                    className="text-sky-800 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    rappzula
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

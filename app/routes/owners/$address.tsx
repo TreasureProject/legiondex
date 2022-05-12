@@ -38,7 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function UserProfile() {
   const { address, legions } = useLoaderData<LoaderData>();
   return (
-    <main className="container mx-auto mt-6 mb-10 px-4 text-center md:mt-10">
+    <main className="container mx-auto px-4 pt-6 pb-10 text-center md:pt-10">
       <h1 className="text-2xl font-bold md:text-4xl">
         {truncateAddress(address)}'s Legion Army
       </h1>

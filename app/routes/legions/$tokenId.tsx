@@ -79,7 +79,7 @@ export default function Token() {
         className="h-[20vh]"
         style={{ backgroundColor: `rgba(${tintColor.join(", ")})` }}
       />
-      <main className="container mx-auto -mt-[8vh] mb-10 text-center">
+      <main className="container mx-auto -mt-[8vh] pb-10 text-center">
         <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-white shadow-lg">
           <img alt="" src={imageAlt} />
         </div>
