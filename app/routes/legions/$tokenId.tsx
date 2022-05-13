@@ -15,6 +15,7 @@ import ConstellationBadge from "~/components/ConstellationBadge";
 import LegionStatusPill from "~/components/LegionStatusPill";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { Rarity } from "~/graphql/bridgeworld.generated";
+import { generateMetaTags } from "~/utils/meta";
 
 type LoaderData = {
   legion: Legion;
@@ -28,19 +29,10 @@ export const meta: MetaFunction = ({ data }) => {
       ? name
       : `${generation} ${rarity} - ${role}`;
 
-  const title = `#${tokenId} ${legionName} | Legiondex`;
-  const description = "Your guide to the heroes of Bridgeworld.";
-  const image = legion.imageAlt ?? legion.image;
-
-  return {
-    title,
-    description,
-    "og:title": title,
-    "og:description": description,
-    "og:image": image,
-    "twitter:card": "summary",
-    "twitter:creator": "@0xrappzula",
-  };
+  return generateMetaTags(
+    `#${tokenId} ${legionName}`,
+    legion.imageAlt ?? legion.image
+  );
 };
 
 export const loader: LoaderFunction = async ({ params }) => {

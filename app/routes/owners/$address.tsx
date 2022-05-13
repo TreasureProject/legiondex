@@ -8,6 +8,7 @@ import type { Legion } from "~/types";
 import { getUserLegions } from "~/models/legion.server";
 import { truncateAddress } from "~/utils/address";
 import LegionCard from "~/components/LegionCard";
+import { generateMetaTags } from "~/utils/meta";
 
 type LoaderData = {
   address: string;
@@ -16,20 +17,10 @@ type LoaderData = {
 
 export const meta: MetaFunction = ({ data }) => {
   const { address, legions } = data as LoaderData;
-
-  const title = `${truncateAddress(address)}'s Legion Army | Legiondex`;
-  const description = "Your guide to the heroes of Bridgeworld.";
-  const image = legions[0]?.imageAlt ?? legions[0]?.image;
-
-  return {
-    title,
-    description,
-    "og:title": title,
-    "og:description": description,
-    "og:image": image,
-    "twitter:card": "summary",
-    "twitter:creator": "@0xrappzula",
-  };
+  return generateMetaTags(
+    `${truncateAddress(address)}'s Legion Army`,
+    legions[0]?.imageAlt ?? legions[0]?.image
+  );
 };
 
 export const loader: LoaderFunction = async ({ params }) => {

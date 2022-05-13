@@ -12,6 +12,7 @@ import { Rarity } from "~/graphql/bridgeworld.generated";
 import clsx from "clsx";
 import LegionCard from "~/components/LegionCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
+import { generateMetaTags } from "~/utils/meta";
 
 type LoaderData = {
   legions: Legion[];
@@ -87,32 +88,22 @@ export const action: ActionFunction = async ({ request }) => {
 
 export const meta: MetaFunction = ({ data }) => {
   const { legions, filterGeneration, filterRarity } = data as LoaderData;
-  let pageTitle = "All Legions";
+  let title = "All Legions";
   if (filterGeneration && filterRarity) {
     if (filterRarity === Rarity.Legendary) {
-      pageTitle = "1/1 Legions";
+      title = "1/1 Legions";
     } else {
-      pageTitle = `${filterGeneration} ${filterRarity} Legions`;
+      title = `${filterGeneration} ${filterRarity} Legions`;
     }
   } else if (filterGeneration) {
-    pageTitle = `${filterGeneration} Legions`;
+    title = `${filterGeneration} Legions`;
   }
 
-  const title = `${pageTitle} | Legiondex`;
-  const description = "Your guide to the heroes of Bridgeworld.";
   const image = filterGeneration
     ? legions?.[0].imageAlt ?? legions?.[0].image
     : "https://treasure-marketplace.mypinata.cloud/ipfs/Qmf4UCM6GDadqY7hcu73tHHEQDqvyFUqA6aDYkJWVh8vJo/Genesis/Rare/Executioner/3C.jpg";
 
-  return {
-    title,
-    description,
-    "og:title": title,
-    "og:description": description,
-    "og:image": image,
-    "twitter:card": "summary",
-    "twitter:creator": "@0xrappzula",
-  };
+  return generateMetaTags(title, image);
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
