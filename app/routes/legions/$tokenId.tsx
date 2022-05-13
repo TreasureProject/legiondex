@@ -27,10 +27,19 @@ export const meta: MetaFunction = ({ data }) => {
     generation === "Recruit" || rarity === Rarity.Legendary
       ? name
       : `${generation} ${rarity} - ${role}`;
+
+  const title = `#${tokenId} ${legionName} | Legiondex`;
+  const description = "Your guide to the heroes of Bridgeworld.";
+  const image = legion.imageAlt ?? legion.image;
+
   return {
-    title: `#${tokenId} ${legionName} | Legiondex`,
-    description: "Your guide to the heroes of Bridgeworld.",
-    "og:image": legion.imageAlt ?? legion.image,
+    title,
+    description,
+    "og:title": title,
+    "og:description": description,
+    "og:image": image,
+    "twitter:card": "summary",
+    "twitter:creator": "@0xrappzula",
   };
 };
 

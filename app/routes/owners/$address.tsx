@@ -16,10 +16,19 @@ type LoaderData = {
 
 export const meta: MetaFunction = ({ data }) => {
   const { address, legions } = data as LoaderData;
+
+  const title = `${truncateAddress(address)}'s Legion Army | Legiondex`;
+  const description = "Your guide to the heroes of Bridgeworld.";
+  const image = legions[0]?.imageAlt ?? legions[0]?.image;
+
   return {
-    title: `${truncateAddress(address)}'s Legion Army | Legiondex`,
-    description: "Your guide to the heroes of Bridgeworld.",
-    "og:image": legions[0]?.imageAlt ?? legions[0]?.image,
+    title,
+    description,
+    "og:title": title,
+    "og:description": description,
+    "og:image": image,
+    "twitter:card": "summary",
+    "twitter:creator": "@0xrappzula",
   };
 };
 
