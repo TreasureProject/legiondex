@@ -9,6 +9,7 @@ type Props = HTMLAttributes<HTMLSpanElement> & {
 const STATUS_TO_DOT_CLASS_NAMES = {
   [LegionStatus.Idle]: "bg-zinc-700",
   [LegionStatus.Crafting]: "bg-orange-700",
+  [LegionStatus.Listed]: "bg-rose-700",
   [LegionStatus.Questing]: "bg-sky-700",
   [LegionStatus.Staked]: "bg-emerald-700",
   [LegionStatus.Summoning]: "bg-indigo-700",
@@ -17,6 +18,7 @@ const STATUS_TO_DOT_CLASS_NAMES = {
 const STATUS_TO_CLASS_NAMES = {
   [LegionStatus.Idle]: "bg-zinc-200 text-zinc-700",
   [LegionStatus.Crafting]: "bg-orange-100 text-orange-700",
+  [LegionStatus.Listed]: "bg-rose-100 text-rose-700",
   [LegionStatus.Questing]: "bg-sky-100 text-sky-700",
   [LegionStatus.Staked]: "bg-emerald-100 text-emerald-700",
   [LegionStatus.Summoning]: "bg-indigo-100 text-indigo-700",

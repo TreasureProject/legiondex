@@ -5,6 +5,7 @@ export type Optional<T> = T | undefined;
 export enum LegionStatus {
   Idle = "Idle",
   Crafting = "Crafting",
+  Listed = "Listed",
   Questing = "Questing",
   Staked = "Staked",
   Summoning = "Summoning",

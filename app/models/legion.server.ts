@@ -1,4 +1,4 @@
-import { bridgeworldSdk } from "~/api.server";
+import { bridgeworldSdk, marketplaceSdk } from "~/api.server";
 import type {
   GetLegionsQuery,
   LegionInfo,
@@ -85,12 +85,19 @@ const updateLegionsStatuses = async (
   prevLegions: Legion[]
 ): Promise<Legion[]> => {
   const legions = [...prevLegions];
-  const legionIds = legions.map(({ id }) => id);
 
   // Fetch on-going activities
-  const activitiesResponse = await bridgeworldSdk.getLegionsActivities({
-    ids: legionIds,
-  });
+  const [activitiesResponse, marketplaceResponse] = await Promise.all([
+    bridgeworldSdk.getLegionsActivities({
+      ids: legions.map(({ id }) => id),
+    }),
+    marketplaceSdk.getLegionsListings({
+      ids: legions.map(
+        ({ tokenId }) =>
+          `0xfe8c1ac365ba6780aec5a985d989b327c27670a1-0x${tokenId.toString(16)}`
+      ),
+    }),
+  ]);
 
   activitiesResponse.advancedQuests.forEach(({ token, user }) => {
     const index = legions.findIndex(({ id }) => id === token.id);
@@ -122,16 +129,32 @@ const updateLegionsStatuses = async (
     legions[index].owner = user.id;
   });
 
+  marketplaceResponse.listings.forEach(({ token, seller }) => {
+    const parsedTokenId = parseInt(token.tokenId);
+    const index = legions.findIndex(({ tokenId }) => tokenId === parsedTokenId);
+    legions[index].status = LegionStatus.Listed;
+    legions[index].owner = seller.id;
+  });
+
   return legions;
 };
 
 export const getUserLegions = async (address: string): Promise<Legion[]> => {
-  const response = await bridgeworldSdk.getUserLegions({
-    id: address.toLowerCase(),
-  });
+  const [response, marketplaceResponse] = await Promise.all([
+    bridgeworldSdk.getUserLegions({
+      id: address.toLowerCase(),
+    }),
+    marketplaceSdk.getUserListings({
+      id: address.toLowerCase(),
+    }),
+  ]);
   if (!response.user) {
     return [];
   }
+
+  const listedTokenIds = marketplaceResponse.listings.map(
+    ({ token: { tokenId } }) => tokenId
+  );
 
   const legions = [
     ...response.user.advancedQuests.map(({ token }) =>
@@ -149,7 +172,14 @@ export const getUserLegions = async (address: string): Promise<Legion[]> => {
     ...response.user.summons.map(({ token }) =>
       normalizeLegion(token, LegionStatus.Summoning)
     ),
-    ...response.user.tokens.map(({ token }) => normalizeLegion(token)),
+    ...response.user.tokens.map(({ token }) =>
+      normalizeLegion(
+        token,
+        listedTokenIds.includes(token.tokenId)
+          ? LegionStatus.Listed
+          : LegionStatus.Idle
+      )
+    ),
   ].flat();
   return legions.sort((a, b) => a.tokenId - b.tokenId);
 };

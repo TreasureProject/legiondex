@@ -7,3 +7,10 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-graphql-request"
+  ./app/graphql/marketplace.generated.ts:
+    schema: https://api.thegraph.com/subgraphs/name/treasureproject/marketplace
+    documents: "./app/graphql/marketplace.queries.ts"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
