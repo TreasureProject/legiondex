@@ -7,21 +7,27 @@ type Props = HTMLAttributes<HTMLSpanElement> & {
 };
 
 const STATUS_TO_DOT_CLASS_NAMES = {
-  [LegionStatus.Idle]: "bg-zinc-700",
-  [LegionStatus.Crafting]: "bg-orange-700",
-  [LegionStatus.Listed]: "bg-rose-700",
-  [LegionStatus.Questing]: "bg-sky-700",
-  [LegionStatus.Staked]: "bg-emerald-700",
-  [LegionStatus.Summoning]: "bg-indigo-700",
+  [LegionStatus.Idle]: "bg-slate-800 dark:bg-slate-200",
+  [LegionStatus.Crafting]: "bg-orange-700 dark:bg-orange-100",
+  [LegionStatus.Listed]: "bg-rose-700 dark:bg-rose-100",
+  [LegionStatus.Questing]: "bg-sky-700 dark:bg-sky-100",
+  [LegionStatus.Staked]: "bg-emerald-700 dark:bg-emerald-100",
+  [LegionStatus.Summoning]: "bg-indigo-700 dark:bg-indigo-100",
 };
 
 const STATUS_TO_CLASS_NAMES = {
-  [LegionStatus.Idle]: "bg-zinc-200 text-zinc-700",
-  [LegionStatus.Crafting]: "bg-orange-100 text-orange-700",
-  [LegionStatus.Listed]: "bg-rose-100 text-rose-700",
-  [LegionStatus.Questing]: "bg-sky-100 text-sky-700",
-  [LegionStatus.Staked]: "bg-emerald-100 text-emerald-700",
-  [LegionStatus.Summoning]: "bg-indigo-100 text-indigo-700",
+  [LegionStatus.Idle]:
+    "bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200",
+  [LegionStatus.Crafting]:
+    "bg-orange-100 text-orange-700 dark:bg-orange-700 dark:text-orange-100",
+  [LegionStatus.Listed]:
+    "bg-rose-100 text-rose-700 dark:bg-rose-700 dark:text-rose-100",
+  [LegionStatus.Questing]:
+    "bg-sky-100 text-sky-700 dark:bg-sky-700 dark:text-sky-100",
+  [LegionStatus.Staked]:
+    "bg-emerald-100 text-emerald-700 dark:bg-emerald-700 dark:text-emerald-100",
+  [LegionStatus.Summoning]:
+    "bg-indigo-100 text-indigo-700 dark:bg-indigo-700 dark:text-indigo-100",
 };
 
 export default function LegionStatusPill({

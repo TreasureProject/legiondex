@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
-export const useImageColor = (
-  src: string,
-  defaultColor = [255, 255, 255, 255]
-) => {
-  const [color, setColor] = useState(defaultColor);
+export const useImageColor = (src: string) => {
+  const [color, setColor] = useState<number[] | undefined>();
   useEffect(() => {
     const image = new Image();
     image.crossOrigin = "anonymous";

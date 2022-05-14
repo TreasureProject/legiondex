@@ -58,14 +58,14 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-100">
-        <nav className="border-b border-gray-200 bg-white px-4 shadow-md">
+      <body className="bg-slate-100 text-black dark:bg-slate-900 dark:text-slate-100">
+        <nav className="border-b border-gray-200 bg-white px-4 shadow-md dark:border-slate-900 dark:bg-slate-900">
           <div className="container mx-auto flex items-center gap-6 md:gap-8">
             <NavLink
               to="/"
               className="group py-3 text-3xl font-black uppercase tracking-tight"
             >
-              <span className="px-1 group-hover:bg-black group-hover:text-white">
+              <span className="px-1 group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-slate-900">
                 Legiondex
               </span>
             </NavLink>
@@ -87,16 +87,18 @@ export default function App() {
             </div>
           </div>
         </nav>
-        <div className="bg-white">
+        <div className="bg-white dark:bg-slate-800">
           <Outlet />
         </div>
         <footer>
           <div className="container mx-auto max-w-[720px]">
             <div className="p-8">
-              <div className="grid grid-cols-1 gap-6 text-sm text-sky-800 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 text-sm text-sky-800 dark:text-slate-400 sm:grid-cols-3">
                 <ul>
                   <li>
-                    <span className="font-medium text-black">Legions</span>
+                    <span className="font-medium dark:text-slate-50">
+                      Legions
+                    </span>
                   </li>
                   {[
                     { to: "/", title: "All Legions" },
@@ -150,7 +152,9 @@ export default function App() {
                 </ul>
                 <ul>
                   <li>
-                    <span className="font-medium text-black">Owners</span>
+                    <span className="font-medium dark:text-slate-50">
+                      Owners
+                    </span>
                   </li>
                   <li>
                     <Link
@@ -169,11 +173,11 @@ export default function App() {
                     </Link>
                   </li>
                 </ul>
-                <div className="text-black">
+                <div className="dark:text-slate-50">
                   Created by{" "}
                   <a
                     href="https://www.twitter.com/0xrappzula"
-                    className="text-sky-800 hover:underline"
+                    className="text-sky-800 hover:underline dark:text-slate-400"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

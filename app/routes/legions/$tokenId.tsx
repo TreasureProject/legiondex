@@ -78,10 +78,14 @@ export default function Token() {
     <>
       <div
         className="h-[20vh]"
-        style={{ backgroundColor: `rgba(${tintColor.join(", ")})` }}
+        style={{
+          backgroundColor: tintColor
+            ? `rgba(${tintColor.join(", ")})`
+            : "transparent",
+        }}
       />
       <main className="container mx-auto -mt-[8vh] pb-10 text-center">
-        <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-white shadow-lg">
+        <div className="mx-auto h-[200px] w-[200px] overflow-hidden rounded-full border-4 border-slate-100 shadow-lg">
           <img alt="" src={imageAlt} />
         </div>
         <div className="mt-3 mb-8">
@@ -110,7 +114,7 @@ export default function Token() {
                 <Link
                   to={`/owners/${owner}`}
                   prefetch="intent"
-                  className="text-sky-800 hover:underline"
+                  className="text-sky-800 hover:underline dark:text-slate-400"
                 >
                   {truncateAddress(owner)}
                 </Link>
@@ -120,7 +124,7 @@ export default function Token() {
                   href={`https://arbiscan.io/token/0xfe8c1ac365ba6780aec5a985d989b327c27670a1?a=${tokenId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1 text-sky-800 hover:underline"
+                  className="inline-flex items-center justify-center gap-1 text-sky-800 hover:underline dark:text-slate-400"
                 >
                   View on Arbiscan <ExternalLinkIcon className="h-4 w-4" />
                 </a>
@@ -129,16 +133,16 @@ export default function Token() {
           )}
         </div>
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
-          <div className="md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:border-gray-200 md:shadow-lg">
+          <div className="border-gray-200 dark:border-slate-900 md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:shadow-lg">
             <img alt="" src={image} />
           </div>
           <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
-                <div className="bg-zinc-50 px-4 py-3">
+              <div className="overflow-hidden border-t border-b border-gray-200 shadow-md dark:border-slate-500 md:rounded-xl md:border">
+                <div className="bg-zinc-50 px-4 py-3 dark:bg-slate-700">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Crafts
-                    <span className="text-sm text-zinc-400">
+                    <span className="text-sm text-zinc-400 dark:text-slate-400">
                       Level {craftingLevel} ({craftingXp}/
                       {getCraftingMaxXpPerLevel(craftingLevel)} XP)
                     </span>
@@ -148,11 +152,11 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
-                <div className="bg-zinc-50 px-4 py-3">
+              <div className="overflow-hidden border-t border-b border-gray-200 shadow-md dark:border-slate-500 md:rounded-xl md:border">
+                <div className="bg-zinc-50 px-4 py-3 dark:bg-slate-700">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Quests
-                    <span className="text-sm text-zinc-400">
+                    <span className="text-sm text-zinc-400 dark:text-slate-400">
                       Level {questingLevel} ({questingXp}/
                       {getQuestingMaxXpPerLevel(questingLevel)} XP)
                     </span>
@@ -162,11 +166,11 @@ export default function Token() {
                   None
                 </div> */}
               </div>
-              <div className="overflow-hidden border-t border-b border-gray-200 bg-white shadow-md md:rounded-xl md:border">
-                <div className="bg-zinc-50 px-4 py-3">
+              <div className="overflow-hidden border-t border-b border-gray-200 shadow-md dark:border-slate-500 md:rounded-xl md:border">
+                <div className="bg-zinc-50 px-4 py-3 dark:bg-slate-700">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Summons
-                    <span className="text-sm text-zinc-400">
+                    <span className="text-sm text-zinc-400 dark:text-slate-400">
                       {summons} / {generation === "Genesis" ? "∞" : 1}
                     </span>
                   </h2>

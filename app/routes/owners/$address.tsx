@@ -46,7 +46,7 @@ export default function UserProfile() {
         href={`https://arbiscan.io/token/0xfe8c1ac365ba6780aec5a985d989b327c27670a1?a=${address}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-1 inline-flex items-center justify-center gap-1 text-sm text-sky-800 hover:underline"
+        className="mt-1 inline-flex items-center justify-center gap-1 text-sm text-sky-800 hover:underline dark:text-slate-400"
       >
         View on Arbiscan <ExternalLinkIcon className="h-4 w-4" />
       </a>

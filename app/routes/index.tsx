@@ -142,7 +142,7 @@ export default function Home() {
         {page > 1 && (
           <Link
             to={buildFilterPath(filterGeneration, filterRarity, page - 1)}
-            className="flex items-center gap-1 text-sky-800 hover:underline"
+            className="flex items-center gap-1 text-sky-800 hover:underline dark:text-slate-300"
           >
             <ChevronLeftIcon className="h-3 w-3" /> Previous
           </Link>
@@ -151,7 +151,7 @@ export default function Home() {
       {legions.length === LEGIONS_PER_PAGE && (
         <Link
           to={buildFilterPath(filterGeneration, filterRarity, page + 1)}
-          className="flex items-center gap-1 text-sky-800 hover:underline"
+          className="flex items-center gap-1 text-sky-800 hover:underline dark:text-slate-300"
         >
           Next <ChevronRightIcon className="h-3 w-3" />
         </Link>
@@ -191,12 +191,12 @@ export default function Home() {
           <input
             id="searchInput"
             name="query"
-            className="group w-full w-full rounded-l border border-r-0 p-2 text-gray-700 focus:border-sky-800 focus:shadow focus:outline-none"
+            className="group w-full w-full rounded-l border border-r-0 border-slate-400 bg-transparent p-2 text-slate-700 focus:border-sky-800 focus:shadow focus:outline-none dark:text-slate-300 dark:focus:border-slate-400"
             type="text"
             placeholder="Search address or token ID..."
           />
           <button
-            className="rounded-r border border-l-0 border-sky-800 bg-sky-800 py-2 px-3 text-white group-focus:shadow"
+            className="rounded-r border border-l-0 border-sky-800 bg-sky-800 py-2 px-3 text-slate-100 group-focus:shadow dark:border-slate-400 dark:bg-slate-700 dark:text-slate-300"
             type="submit"
           >
             Go

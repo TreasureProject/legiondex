@@ -37,7 +37,7 @@ export default function LegionCard({ legion }: Props) {
     <Link
       to={`/legions/${tokenId}`}
       prefetch="intent"
-      className="group overflow-hidden rounded-l-full rounded-r-[2500px] border border-gray-200 bg-white shadow-md hover:shadow-lg"
+      className="group overflow-hidden rounded-l-full rounded-r-[2500px] border border-gray-200 bg-white shadow-md hover:shadow-lg dark:border-slate-500 dark:bg-slate-700"
     >
       <div className="relative flex gap-3 p-1">
         <div className="w-[30%] overflow-hidden rounded-full">
@@ -46,12 +46,12 @@ export default function LegionCard({ legion }: Props) {
         <div className="flex flex-1 flex-col justify-between py-1 text-left">
           <div className="-ml-1">
             {!isNamed && (
-              <span className="block px-1 text-sm">
+              <span className="block px-1 text-sm dark:text-slate-200">
                 {generation} {rarity}
               </span>
             )}
             <span className={clsx("block", !isNamed && "-mt-1")}>
-              <span className="px-1 text-lg font-black uppercase tracking-tight group-hover:bg-black group-hover:text-white">
+              <span className="px-1 text-lg font-black uppercase tracking-tight group-hover:bg-black group-hover:text-white dark:group-hover:bg-slate-100 dark:group-hover:text-slate-800">
                 {isNamed ? name : role}
               </span>
             </span>
@@ -72,7 +72,7 @@ export default function LegionCard({ legion }: Props) {
                 <span className="align-middle font-semibold">
                   Craft Lv. {craftingLevel}
                 </span>{" "}
-                <span className="align-middle text-[0.65rem]">
+                <span className="align-middle text-[0.65rem] dark:text-slate-200">
                   ({craftingXp}/{getCraftingMaxXpPerLevel(craftingLevel)} XP)
                 </span>
               </span>
@@ -80,7 +80,7 @@ export default function LegionCard({ legion }: Props) {
                 <span className="align-middle font-semibold">
                   Quest Lv. {questingLevel}
                 </span>{" "}
-                <span className="align-middle text-[0.65rem]">
+                <span className="align-middle text-[0.65rem] dark:text-slate-200">
                   ({questingXp}/{getQuestingMaxXpPerLevel(questingLevel)} XP)
                 </span>
               </span>
