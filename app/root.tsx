@@ -13,6 +13,7 @@ import {
 } from "@remix-run/react";
 import NProgress from "nprogress";
 import { useEffect, useMemo } from "react";
+import { GitHubIcon } from "./components/Icons";
 
 import nProgressStyles from "./styles/nprogress.css";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
@@ -174,14 +175,12 @@ export default function App() {
                   </li>
                 </ul>
                 <div className="dark:text-slate-50">
-                  Created by{" "}
                   <a
-                    href="https://www.twitter.com/0xrappzula"
-                    className="text-sky-800 hover:underline dark:text-slate-400"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="https://github.com/TreasureProject/legiondex"
+                    title="GitHub"
+                    className="group"
                   >
-                    rappzula
+                    <GitHubIcon className="h-10 w-10" />
                   </a>
                 </div>
               </div>
