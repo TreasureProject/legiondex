@@ -10,7 +10,8 @@ const ELEMENT_COLOR_CLASS_NAMES: Record<ConstellationElement, string> = {
   [ConstellationElement.Dark]: "bg-stone-500",
   [ConstellationElement.Earth]: "bg-green-500",
   [ConstellationElement.Fire]: "bg-red-500",
-  [ConstellationElement.Light]: "bg-neutral-300 text-neutral-600 dark:text-slate-600",
+  [ConstellationElement.Light]:
+    "bg-neutral-300 text-neutral-600 dark:text-slate-600",
   [ConstellationElement.Water]: "bg-blue-500",
   [ConstellationElement.Wind]: "bg-cyan-500",
 };

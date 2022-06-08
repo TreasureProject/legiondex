@@ -6,8 +6,15 @@ import type {
   Token_Filter,
 } from "~/graphql/bridgeworld.generated";
 import { Category } from "~/graphql/bridgeworld.generated";
-import type { Legion, LegionClass, LegionGeneration, Optional } from "~/types";
+import type {
+  Legion,
+  LegionClass,
+  LegionGeneration,
+  Optional,
+  Summon,
+} from "~/types";
 import { ConstellationElement, LegionStatus } from "~/types";
+import { normalizeSummon } from "./summon.server";
 
 type RawLegion = GetLegionsQuery["tokens"][0];
 
@@ -16,12 +23,17 @@ type GetLegionsFilter = {
   rarity?: Rarity;
 };
 
+type GetLegionResponse = {
+  legion?: Legion;
+  summons: Summon[];
+};
+
 const GENERATIONS: LegionGeneration[] = ["Genesis", "Auxiliary", "Recruit"];
 
 const normalizeImage = (url: string) =>
   url.replace("ipfs://", "https://treasure-marketplace.mypinata.cloud/ipfs/");
 
-const normalizeLegion = (
+export const normalizeLegion = (
   {
     id,
     tokenId,
@@ -51,7 +63,7 @@ const normalizeLegion = (
     craftingXp: metadata?.craftingXp ?? 0,
     questingLevel: metadata?.questing ?? 0,
     questingXp: metadata?.questingXp ?? 0,
-    summons: metadata?.summons ?? 0,
+    summonCount: metadata?.summons ?? 0,
     constellations: [
       {
         element: ConstellationElement.Light,
@@ -210,19 +222,28 @@ export const getLegions = async (
 
 export const getLegion = async (
   tokenId: number
-): Promise<Legion | undefined> => {
-  const response = await bridgeworldSdk.getLegions({
-    where: {
-      category: Category.Legion,
-      tokenId,
-    },
-  });
+): Promise<GetLegionResponse> => {
+  let result: GetLegionResponse = {
+    summons: [],
+  };
 
+  const response = await bridgeworldSdk.getLegionId({ tokenId });
   if (!response.tokens?.[0]) {
-    return undefined;
+    return result;
   }
 
-  const legion = normalizeLegion(response.tokens?.[0]);
-  const legionsWithStatuses = await updateLegionsStatuses([legion]);
-  return legionsWithStatuses[0];
+  const id = response.tokens[0].id;
+  const detailsResponse = await bridgeworldSdk.getLegionDetails({
+    id,
+    token: id,
+  });
+  if (!detailsResponse.token) {
+    return result;
+  }
+
+  const legion = normalizeLegion(detailsResponse.token);
+  const legionWithStatus = await updateLegionsStatuses([legion]);
+  result.legion = legionWithStatus[0];
+  result.summons = detailsResponse.summons.map(normalizeSummon);
+  return result;
 };

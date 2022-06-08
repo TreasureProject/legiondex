@@ -171,7 +171,7 @@ export default function Home() {
                   "rounded-full px-3 py-1 md:px-4 md:py-2",
                   (!filterRarity && name.includes("All")) ||
                     filterRarity === name
-                    ? "bg-slate-100 dark:bg-slate-500 font-semibold"
+                    ? "bg-slate-100 font-semibold dark:bg-slate-500"
                     : "hover:underline"
                 )}
               >

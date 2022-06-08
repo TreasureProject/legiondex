@@ -35,6 +35,36 @@ const legionFieldsFragment = gql`
   }
 `;
 
+export const getLegionDetails = gql`
+  query getLegionDetails($id: ID!, $token: String!) {
+    token(id: $id) {
+      ...legionFields
+    }
+    summons(
+      where: { token: $token }
+      orderBy: endTimestamp
+      orderDirection: desc
+    ) {
+      id
+      endTimestamp
+      status
+      success
+      resultToken {
+        ...legionFields
+      }
+    }
+  }
+  ${legionFieldsFragment}
+`;
+
+export const getLegionId = gql`
+  query getLegionId($tokenId: BigInt!) {
+    tokens(where: { category: Legion, tokenId: $tokenId }) {
+      id
+    }
+  }
+`;
+
 export const getLegionsActivities = gql`
   query getLegionsActivities(
     $ids: [String!]!

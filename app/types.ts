@@ -1,4 +1,4 @@
-import type { Rarity } from "./graphql/bridgeworld.generated";
+import type { Rarity, Status } from "./graphql/bridgeworld.generated";
 
 export type Optional<T> = T | undefined;
 
@@ -43,6 +43,14 @@ export type Constellation = {
   value: number;
 };
 
+export type Summon = {
+  id: string;
+  endDate: Date;
+  status: Status;
+  success: boolean;
+  resultLegion?: Legion;
+};
+
 export type Legion = {
   id: string;
   tokenId: number;
@@ -58,6 +66,6 @@ export type Legion = {
   craftingXp: number;
   questingLevel: number;
   questingXp: number;
-  summons: number;
+  summonCount: number;
   constellations: Constellation[];
 };

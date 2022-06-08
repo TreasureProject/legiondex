@@ -3,7 +3,7 @@ import { json } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import type { Legion } from "~/types";
+import type { Legion, Summon } from "~/types";
 import { getLegion } from "~/models/legion.server";
 import {
   getCraftingMaxXpPerLevel,
@@ -16,9 +16,11 @@ import LegionStatusPill from "~/components/LegionStatusPill";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { Rarity } from "~/graphql/bridgeworld.generated";
 import { generateMetaTags } from "~/utils/meta";
+// import SuccessPill from "~/components/SuccessPill";
 
 type LoaderData = {
   legion: Legion;
+  summons: Summon[];
 };
 
 export const meta: MetaFunction = ({ data }) => {
@@ -40,14 +42,14 @@ export const loader: LoaderFunction = async ({ params }) => {
   invariant(tokenId, "Legion not found");
 
   const parsedTokenId = parseInt(tokenId);
-  const legion = await getLegion(
+  const { legion, summons } = await getLegion(
     Number.isNaN(parsedTokenId) ? 0 : parsedTokenId
   );
   if (!legion) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  return json<LoaderData>({ legion });
+  return json<LoaderData>({ legion, summons });
 };
 
 export default function Token() {
@@ -67,7 +69,7 @@ export default function Token() {
     craftingXp,
     questingLevel,
     questingXp,
-    summons,
+    summonCount,
     owner,
     status,
   } = legion;
@@ -133,8 +135,10 @@ export default function Token() {
           )}
         </div>
         <div className="grid grid-cols-1 gap-y-10 md:grid-cols-5 md:gap-10">
-          <div className="border-gray-200 dark:border-slate-900 md:col-span-2 md:overflow-hidden md:rounded-xl md:border md:shadow-lg">
-            <img alt="" src={image} />
+          <div className="md:col-span-2">
+            <div className="border-gray-200 dark:border-slate-900 md:overflow-hidden md:rounded-xl md:border md:shadow-lg">
+              <img alt="" src={image} />
+            </div>
           </div>
           <div className="text-left md:col-span-3">
             <div className="flex flex-col gap-10">
@@ -171,12 +175,48 @@ export default function Token() {
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     Summons
                     <span className="text-sm text-zinc-400 dark:text-slate-400">
-                      {summons} / {generation === "Genesis" ? "∞" : 1}
+                      {summonCount} / {generation === "Genesis" ? "∞" : 1}
                     </span>
                   </h2>
                 </div>
                 {/* <div className="p-4 text-sm">
-                  None
+                  <table className="w-full table-fixed">
+                    {summons.map((summon) => (
+                      <tr key={summon.id} className="h-14">
+                        <td>{new Date(summon.endDate).toLocaleDateString()}</td>
+                        <td>
+                          <SuccessPill success={summon.success} />
+                        </td>
+                        <td className="py-4">
+                          {summon.resultLegion && (
+                            <Link
+                              to={`/legions/${summon.resultLegion.tokenId}`}
+                              className="flex items-center gap-2"
+                            >
+                              <img
+                                src={
+                                  summon.resultLegion.imageAlt ??
+                                  summon.resultLegion.image
+                                }
+                                className="h-14 w-14 rounded-full"
+                              />
+                              <span>
+                                <span className="block text-xs">
+                                  #{summon.resultLegion.tokenId}
+                                </span>
+                                <span className="block">
+                                  {summon.resultLegion.name}
+                                </span>
+                                <span className="-mt-2 block text-lg font-black uppercase">
+                                  {summon.resultLegion.role}
+                                </span>
+                              </span>
+                            </Link>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </table>
                 </div> */}
               </div>
             </div>
