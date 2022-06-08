@@ -81,3 +81,14 @@
     transform: rotate(360deg);
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  #nprogress .bar {
+    background: #fff;
+  }
+
+  #nprogress .spinner-icon {
+    border-top-color: #fff;
+    border-left-color: #fff;
+  }
+}
