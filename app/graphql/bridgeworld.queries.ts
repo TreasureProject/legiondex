@@ -70,7 +70,10 @@ export const getLegionsActivities = gql`
     $ids: [String!]!
     $statuses: [Status!] = [Idle, Revealable, Revealed]
   ) {
-    advancedQuests(where: { token_in: $ids, status_in: $statuses }) {
+    advancedQuests(
+      first: 1000
+      where: { token_in: $ids, status_in: $statuses }
+    ) {
       token {
         id
       }
@@ -78,7 +81,10 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    crafts(where: { token_in: $ids, status_in: $statuses }) {
+    crafts(
+      first: 1000
+      where: { token_in: $ids, status_in: $statuses }
+    ) {
       token {
         id
       }
@@ -86,7 +92,10 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    quests(where: { token_in: $ids, status_in: $statuses }) {
+    quests(
+      first: 1000
+      where: { token_in: $ids, status_in: $statuses }
+    ) {
       token {
         id
       }
@@ -94,7 +103,10 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    stakedTokens(where: { token_in: $ids }) {
+    stakedTokens(
+      first: 1000
+      where: { token_in: $ids }
+    ) {
       token {
         id
       }
@@ -102,7 +114,10 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    summons(where: { token_in: $ids, status_in: $statuses }) {
+    summons(
+      first: 1000
+      where: { token_in: $ids, status_in: $statuses }
+    ) {
       token {
         id
       }
@@ -137,22 +152,32 @@ export const getLegions = gql`
 export const getUserLegions = gql`
   query getUserLegions($id: ID!) {
     user(id: $id) {
-      advancedQuests(where: { status_in: [Idle, Revealable, Revealed] }) {
+      advancedQuests(
+        first: 1000
+        where: { status_in: [Idle, Revealable, Revealed] }
+      ) {
         token {
           ...legionFields
         }
       }
-      crafts(where: { status_in: [Idle, Revealable, Revealed] }) {
+      crafts(
+        first: 1000
+        where: { status_in: [Idle, Revealable, Revealed] }
+      ) {
         token {
           ...legionFields
         }
       }
-      quests(where: { status_in: [Idle, Revealable, Revealed] }) {
+      quests(
+        first: 1000
+        where: { status_in: [Idle, Revealable, Revealed] }
+      ) {
         token {
           ...legionFields
         }
       }
       staked(
+        first: 1000
         where: {
           token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
         }
@@ -161,12 +186,16 @@ export const getUserLegions = gql`
           ...legionFields
         }
       }
-      summons(where: { status_in: [Idle, Revealable, Revealed] }) {
+      summons(
+        first: 1000
+        where: { status_in: [Idle, Revealable, Revealed] }
+      ) {
         token {
           ...legionFields
         }
       }
       tokens(
+        first: 1000
         where: {
           token_starts_with: "0xfe8c1ac365ba6780aec5a985d989b327c27670a1"
         }
