@@ -69,3 +69,20 @@ export type Legion = {
   summonCount: number;
   constellations: Constellation[];
 };
+
+export enum FilterMethod {
+  Equals = "equals",
+  Not = "not",
+  GreaterThan = "gt",
+  LessThan = "lt",
+  GreaterThanOrEqualTo = "gte",
+  LessThanOrEqualTo = "lte",
+  In = "in",
+  NotIn = "not_in",
+}
+
+export type Filter = {
+  id: string;
+  method: FilterMethod;
+  value: string | number;
+};

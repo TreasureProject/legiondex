@@ -7,6 +7,7 @@ import type {
 } from "~/graphql/bridgeworld.generated";
 import { Category } from "~/graphql/bridgeworld.generated";
 import type {
+  Filter,
   Legion,
   LegionClass,
   LegionGeneration,
@@ -14,6 +15,7 @@ import type {
   Summon,
 } from "~/types";
 import { ConstellationElement, LegionStatus } from "~/types";
+import { filterLegions } from "~/utils/legion";
 import { normalizeSummon } from "./summon.server";
 
 type RawLegion = GetLegionsQuery["tokens"][0];
@@ -151,7 +153,10 @@ const updateLegionsStatuses = async (
   return legions;
 };
 
-export const getUserLegions = async (address: string): Promise<Legion[]> => {
+export const getUserLegions = async (
+  address: string,
+  filters?: Filter[]
+): Promise<Legion[]> => {
   const [response, marketplaceResponse] = await Promise.all([
     bridgeworldSdk.getUserLegions({
       id: address.toLowerCase(),
@@ -193,7 +198,7 @@ export const getUserLegions = async (address: string): Promise<Legion[]> => {
       )
     ),
   ].flat();
-  return legions.sort((a, b) => a.tokenId - b.tokenId);
+  return filterLegions(legions, filters).sort((a, b) => a.tokenId - b.tokenId);
 };
 
 export const getLegions = async (

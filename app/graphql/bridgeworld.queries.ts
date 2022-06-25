@@ -81,10 +81,7 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    crafts(
-      first: 1000
-      where: { token_in: $ids, status_in: $statuses }
-    ) {
+    crafts(first: 1000, where: { token_in: $ids, status_in: $statuses }) {
       token {
         id
       }
@@ -92,10 +89,7 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    quests(
-      first: 1000
-      where: { token_in: $ids, status_in: $statuses }
-    ) {
+    quests(first: 1000, where: { token_in: $ids, status_in: $statuses }) {
       token {
         id
       }
@@ -103,10 +97,7 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    stakedTokens(
-      first: 1000
-      where: { token_in: $ids }
-    ) {
+    stakedTokens(first: 1000, where: { token_in: $ids }) {
       token {
         id
       }
@@ -114,10 +105,7 @@ export const getLegionsActivities = gql`
         id
       }
     }
-    summons(
-      first: 1000
-      where: { token_in: $ids, status_in: $statuses }
-    ) {
+    summons(first: 1000, where: { token_in: $ids, status_in: $statuses }) {
       token {
         id
       }
@@ -160,18 +148,12 @@ export const getUserLegions = gql`
           ...legionFields
         }
       }
-      crafts(
-        first: 1000
-        where: { status_in: [Idle, Revealable, Revealed] }
-      ) {
+      crafts(first: 1000, where: { status_in: [Idle, Revealable, Revealed] }) {
         token {
           ...legionFields
         }
       }
-      quests(
-        first: 1000
-        where: { status_in: [Idle, Revealable, Revealed] }
-      ) {
+      quests(first: 1000, where: { status_in: [Idle, Revealable, Revealed] }) {
         token {
           ...legionFields
         }
@@ -186,10 +168,7 @@ export const getUserLegions = gql`
           ...legionFields
         }
       }
-      summons(
-        first: 1000
-        where: { status_in: [Idle, Revealable, Revealed] }
-      ) {
+      summons(first: 1000, where: { status_in: [Idle, Revealable, Revealed] }) {
         token {
           ...legionFields
         }

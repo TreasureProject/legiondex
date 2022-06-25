@@ -1,18 +1,24 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 
-import type { Legion } from "~/types";
+import type { Filter, Legion } from "~/types";
 import { getUserLegions } from "~/models/legion.server";
 import { truncateAddress } from "~/utils/address";
 import LegionCard from "~/components/LegionCard";
 import { generateMetaTags } from "~/utils/meta";
+import LegionFilters from "~/components/LegionFilters";
+import {
+  getFiltersFromSearchParams,
+  setFiltersOnSearchParams,
+} from "~/utils/filter";
 
 type LoaderData = {
   address: string;
   legions: Legion[];
+  filters: Filter[];
 };
 
 export const meta: MetaFunction = ({ data }) => {
@@ -23,20 +29,24 @@ export const meta: MetaFunction = ({ data }) => {
   );
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const { address } = params;
   invariant(address, "Address not found");
 
-  const legions = await getUserLegions(address);
+  const url = new URL(request.url);
+  const filters = getFiltersFromSearchParams(url.searchParams);
+  const legions = await getUserLegions(address, filters);
 
   return json<LoaderData>({
     address,
     legions,
+    filters,
   });
 };
 
 export default function UserProfile() {
-  const { address, legions } = useLoaderData<LoaderData>();
+  const { address, legions, filters } = useLoaderData<LoaderData>();
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <main className="container mx-auto px-4 pt-6 pb-10 text-center md:pt-10">
       <h1 className="text-2xl font-bold md:text-4xl">
@@ -50,8 +60,17 @@ export default function UserProfile() {
       >
         View on Arbiscan <ExternalLinkIcon className="h-4 w-4" />
       </a>
+      <div className="my-6 flex flex-wrap items-center justify-center gap-1 md:justify-start">
+        <LegionFilters
+          selectedFilters={filters}
+          onChange={(filters) => {
+            setFiltersOnSearchParams(filters, searchParams);
+            setSearchParams(searchParams);
+          }}
+        />
+      </div>
       {legions.length > 0 ? (
-        <div className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
           {legions.map((legion) => (
             <LegionCard key={legion.id} legion={legion} />
           ))}
