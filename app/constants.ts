@@ -12,8 +12,8 @@ export const FILTER_METHOD_MAPPING: Record<FilterMethod, string> = {
 };
 
 export const FILTER_METHOD_SHORT_MAPPING: Record<FilterMethod, string> = {
-  [FilterMethod.Equals]: "=",
-  [FilterMethod.Not]: "!=",
+  [FilterMethod.Equals]: "is",
+  [FilterMethod.Not]: "is not",
   [FilterMethod.GreaterThan]: ">",
   [FilterMethod.LessThan]: "<",
   [FilterMethod.GreaterThanOrEqualTo]: ">=",
