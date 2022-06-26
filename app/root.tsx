@@ -189,6 +189,12 @@ export default function App() {
         </footer>
         <ScrollRestoration />
         <Scripts />
+        <script
+          id="analytics"
+          src="https://efficient-bloc-party.treasure.lol/script.js"
+          data-site="XBZCEUKN"
+          defer
+        ></script>
         <LiveReload />
       </body>
     </html>
