@@ -17,7 +17,7 @@ export const FILTER_METHOD_SHORT_MAPPING: Record<FilterMethod, string> = {
   [FilterMethod.GreaterThan]: ">",
   [FilterMethod.LessThan]: "<",
   [FilterMethod.GreaterThanOrEqualTo]: ">=",
-  [FilterMethod.LessThanOrEqualTo]: "<",
+  [FilterMethod.LessThanOrEqualTo]: "<=",
   [FilterMethod.In]: "includes",
   [FilterMethod.NotIn]: "excludes",
 };
@@ -53,7 +53,7 @@ export const LEGION_FILTERS = {
       FilterMethod.GreaterThanOrEqualTo,
       FilterMethod.LessThanOrEqualTo,
     ],
-    options: [1, 2, 3, 4, 5, 6, 7],
+    options: [0, 1, 2, 3, 4, 5, 6, 7],
   },
   status: {
     label: "Status",

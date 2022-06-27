@@ -78,14 +78,24 @@ export const filterLegions = (legions: Legion[], filters?: Filter[]) =>
           break;
 
         case "constellationLevel":
+          if (value === 0 && method === FilterMethod.Equals) {
+            return legion.constellations.every(
+              (constellation) => constellation.value === 0
+            );
+          }
+
+          if (method === FilterMethod.LessThanOrEqualTo) {
+            return legion.constellations.every(
+              (constellation) => constellation.value <= Number(value)
+            );
+          }
+
           return legion.constellations.some((constellation) => {
             switch (method) {
               case FilterMethod.Equals:
                 return constellation.value === Number(value);
               case FilterMethod.GreaterThanOrEqualTo:
                 return constellation.value >= Number(value);
-              case FilterMethod.LessThanOrEqualTo:
-                return constellation.value <= Number(value);
               default:
                 return false;
             }
