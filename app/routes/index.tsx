@@ -13,6 +13,7 @@ import clsx from "clsx";
 import LegionCard from "~/components/LegionCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { generateMetaTags } from "~/utils/meta";
+import { createBridgeworldSdk } from "~/api.server";
 
 type LoaderData = {
   legions: Legion[];
@@ -106,7 +107,7 @@ export const meta: MetaFunction = ({ data }) => {
   return generateMetaTags(title, image);
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
   const generation =
     (url.searchParams.get("generation") as LegionGeneration) || undefined;
@@ -115,6 +116,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const page = pageString ? parseInt(pageString) : 1;
 
   const legions = await getLegions(
+    createBridgeworldSdk(context.BRIDGEWORLD_API_URL),
     LEGIONS_PER_PAGE,
     (page - 1) * LEGIONS_PER_PAGE,
     { generation, rarity }
@@ -191,7 +193,7 @@ export default function Home() {
           <input
             id="searchInput"
             name="query"
-            className="group w-full w-full rounded-l border border-r-0 border-slate-400 bg-transparent p-2 text-slate-700 focus:border-sky-800 focus:shadow focus:outline-none dark:text-slate-300 dark:focus:border-slate-400"
+            className="group w-full rounded-l border border-r-0 border-slate-400 bg-transparent p-2 text-slate-700 focus:border-sky-800 focus:shadow focus:outline-none dark:text-slate-300 dark:focus:border-slate-400"
             type="text"
             placeholder="Search address or token ID..."
           />

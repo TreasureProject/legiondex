@@ -16,6 +16,7 @@ import LegionStatusPill from "~/components/LegionStatusPill";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { Rarity } from "~/graphql/bridgeworld.generated";
 import { generateMetaTags } from "~/utils/meta";
+import { createBridgeworldSdk } from "~/api.server";
 // import SuccessPill from "~/components/SuccessPill";
 
 type LoaderData = {
@@ -37,12 +38,13 @@ export const meta: MetaFunction = ({ data }) => {
   );
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, context }) => {
   const { tokenId } = params;
   invariant(tokenId, "Legion not found");
 
   const parsedTokenId = parseInt(tokenId);
   const { legion, summons } = await getLegion(
+    createBridgeworldSdk(context.BRIDGEWORLD_API_URL),
     Number.isNaN(parsedTokenId) ? 0 : parsedTokenId
   );
   if (!legion) {

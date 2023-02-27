@@ -1,7 +1,7 @@
 overwrite: true
 generates:
   ./app/graphql/bridgeworld.generated.ts:
-    schema: https://api.thegraph.com/subgraphs/name/treasureproject/bridgeworld
+    schema: ${BRIDGEWORLD_API_URL}
     documents: "./app/graphql/bridgeworld.queries.ts"
     plugins:
       - "typescript"

@@ -14,6 +14,7 @@ import {
   getFiltersFromSearchParams,
   setFiltersOnSearchParams,
 } from "~/utils/filter";
+import { createBridgeworldSdk } from "~/api.server";
 
 type LoaderData = {
   address: string;
@@ -29,13 +30,17 @@ export const meta: MetaFunction = ({ data }) => {
   );
 };
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async ({ request, params, context }) => {
   const { address } = params;
   invariant(address, "Address not found");
 
   const url = new URL(request.url);
   const filters = getFiltersFromSearchParams(url.searchParams);
-  const legions = await getUserLegions(address, filters);
+  const legions = await getUserLegions(
+    createBridgeworldSdk(context.BRIDGEWORLD_API_URL),
+    address,
+    filters
+  );
 
   return json<LoaderData>({
     address,

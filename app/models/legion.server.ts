@@ -1,4 +1,4 @@
-import { bridgeworldSdk, marketplaceSdk } from "~/api.server";
+import { type BridgeworldClient, marketplaceSdk } from "~/api.server";
 import type {
   GetLegionsQuery,
   LegionInfo,
@@ -96,13 +96,14 @@ export const normalizeLegion = (
 };
 
 const updateLegionsStatuses = async (
+  client: BridgeworldClient,
   prevLegions: Legion[]
 ): Promise<Legion[]> => {
   const legions = [...prevLegions];
 
   // Fetch on-going activities
   const [activitiesResponse, marketplaceResponse] = await Promise.all([
-    bridgeworldSdk.getLegionsActivities({
+    client.getLegionsActivities({
       ids: legions.map(({ id }) => id),
     }),
     marketplaceSdk.getLegionsListings({
@@ -154,11 +155,12 @@ const updateLegionsStatuses = async (
 };
 
 export const getUserLegions = async (
+  client: BridgeworldClient,
   address: string,
   filters?: Filter[]
 ): Promise<Legion[]> => {
   const [response, marketplaceResponse] = await Promise.all([
-    bridgeworldSdk.getUserLegions({
+    client.getUserLegions({
       id: address.toLowerCase(),
     }),
     marketplaceSdk.getUserListings({
@@ -202,6 +204,7 @@ export const getUserLegions = async (
 };
 
 export const getLegions = async (
+  client: BridgeworldClient,
   first: number = 30,
   skip: number = 0,
   filter: Optional<GetLegionsFilter> = undefined
@@ -215,30 +218,31 @@ export const getLegions = async (
     where.rarity = filter.rarity;
   }
 
-  const response = await bridgeworldSdk.getLegions({
+  const response = await client.getLegions({
     first,
     skip,
     where,
   });
   const legions = response.tokens.map((token) => normalizeLegion(token)) ?? [];
-  const legionsWithStatuses = await updateLegionsStatuses(legions);
+  const legionsWithStatuses = await updateLegionsStatuses(client, legions);
   return legionsWithStatuses;
 };
 
 export const getLegion = async (
+  client: BridgeworldClient,
   tokenId: number
 ): Promise<GetLegionResponse> => {
   let result: GetLegionResponse = {
     summons: [],
   };
 
-  const response = await bridgeworldSdk.getLegionId({ tokenId });
+  const response = await client.getLegionId({ tokenId });
   if (!response.tokens?.[0]) {
     return result;
   }
 
   const id = response.tokens[0].id;
-  const detailsResponse = await bridgeworldSdk.getLegionDetails({
+  const detailsResponse = await client.getLegionDetails({
     id,
     token: id,
   });
@@ -247,7 +251,7 @@ export const getLegion = async (
   }
 
   const legion = normalizeLegion(detailsResponse.token);
-  const legionWithStatus = await updateLegionsStatuses([legion]);
+  const legionWithStatus = await updateLegionsStatuses(client, [legion]);
   result.legion = legionWithStatus[0];
   result.summons = detailsResponse.summons.map(normalizeSummon);
   return result;

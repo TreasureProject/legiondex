@@ -16,7 +16,13 @@ Install dependencies:
 npm install
 ```
 
-Auto-generate types from GraphQL queries:
+Create environment variable file:
+
+```
+cp .env.example .env
+```
+
+Fill environment variable file with relevant variables then auto-generate types from GraphQL queries:
 
 ```
 npm run codegen
